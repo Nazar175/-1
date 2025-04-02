@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Деталі оцінки</title>
+</head>
+<body>
+    <h1>Деталі оцінки</h1>
+    <ul>
+        <li>ID: {{ grade.Grade_ID }}</li>
+        <li>ID Студента: {{ grade.Student_ID }}</li>
+        <li>ID Дисципліни: {{ grade.Discipline_ID }}</li>
+        <li>Оцінка: {{ grade.Grade_Value }}</li>
+    </ul>
+    <a href="{{ url_for('grades_index') }}">Назад до списку</a>
+</body>
+</html>

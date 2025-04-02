@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Disciplines</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Manage Disciplines</h1>
+
+    <h2>Add a new discipline</h2>
+    <form id="addDisciplineForm">
+        Discipline Name: <input type="text" id="disciplineName" required>
+        <button type="submit">Add Discipline</button>
+    </form>
+    <p id="addMessage" style="color: green;"></p>
+
+    <h2>Update Discipline</h2>
+    <form id="updateDisciplineForm">
+        Discipline ID: <input type="number" id="updateId" required>
+        New Name: <input type="text" id="updateDisciplineName" required>
+        <button type="submit">Update Discipline</button>
+    </form>
+    <p id="updateMessage" style="color: green;"></p>
+
+    <h2>Delete Discipline</h2>
+    <form id="deleteDisciplineForm">
+        Discipline ID: <input type="number" id="deleteId" required>
+        <button type="submit">Delete Discipline</button>
+    </form>
+    <p id="deleteMessage" style="color: red;"></p>
+
+    <script>
+        $(document).ready(function() {
+            $("#addDisciplineForm").submit(function(event) {
+                event.preventDefault();
+                $.post("/manage_disciplines", {
+                    Discipline_Name: $("#disciplineName").val()
+                }, function() {
+                    $("#addMessage").text("Discipline added successfully!");
+                });
+            });
+
+            $("#updateDisciplineForm").submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/manage_disciplines",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        id: $("#updateId").val(),
+                        Discipline_Name: $("#updateDisciplineName").val()
+                    }),
+                    success: function() {
+                        $("#updateMessage").text("Discipline updated successfully!");
+                    }
+                });
+            });
+
+            $("#deleteDisciplineForm").submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/manage_disciplines",
+                    type: "DELETE",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: $("#deleteId").val() }),
+                    success: function() {
+                        $("#deleteMessage").text("Discipline deleted successfully!");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

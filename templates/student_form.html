@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Students</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Manage Students</h1>
+
+    <h2>Add a new student</h2>
+    <form id="addStudentForm">
+        First Name: <input type="text" id="firstName" required>
+        Last Name: <input type="text" id="lastName" required>
+        Course: <input type="number" id="course" required>
+        <button type="submit">Add Student</button>
+    </form>
+    <p id="addMessage" style="color: green;"></p>
+
+    <h2>Update Student</h2>
+    <form id="updateStudentForm">
+        Student ID: <input type="number" id="updateId" required>
+        New First Name: <input type="text" id="updateFirstName" required>
+        New Last Name: <input type="text" id="updateLastName" required>
+        New Course: <input type="number" id="updateCourse" required>
+        <button type="submit">Update Student</button>
+    </form>
+    <p id="updateMessage" style="color: green;"></p>
+
+    <h2>Delete Student</h2>
+    <form id="deleteStudentForm">
+        Student ID: <input type="number" id="deleteId" required>
+        <button type="submit">Delete Student</button>
+    </form>
+    <p id="deleteMessage" style="color: red;"></p>
+
+    <script>
+        $(document).ready(function() {
+            $("#addStudentForm").submit(function(event) {
+                event.preventDefault();
+                $.post("/manage_students", {
+                    First_Name: $("#firstName").val(),
+                    Last_Name: $("#lastName").val(),
+                    Course: $("#course").val()
+                }, function() {
+                    $("#addMessage").text("Student added successfully!");
+                });
+            });
+
+            $("#updateStudentForm").submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/manage_students",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        id: $("#updateId").val(),
+                        First_Name: $("#updateFirstName").val(),
+                        Last_Name: $("#updateLastName").val(),
+                        Course: $("#updateCourse").val()
+                    }),
+                    success: function() {
+                        $("#updateMessage").text("Student updated successfully!");
+                    }
+                });
+            });
+
+            $("#deleteStudentForm").submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/manage_students",
+                    type: "DELETE",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: $("#deleteId").val() }),
+                    success: function() {
+                        $("#deleteMessage").text("Student deleted successfully!");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

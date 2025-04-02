@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Деталі дисципліни</title>
+</head>
+<body>
+    <h1>Деталі дисципліни</h1>
+    <ul>
+        <li>ID: {{ discipline.Discipline_ID }}</li>
+        <li>Назва: {{ discipline.Discipline_Name }}</li>
+    </ul>
+    <a href="{{ url_for('disciplines_index') }}">Назад до списку</a>
+</body>
+</html>

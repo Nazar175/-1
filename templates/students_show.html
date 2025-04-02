@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Деталі студента</title>
+</head>
+<body>
+    <h1>Деталі студента</h1>
+    <ul>
+        <li>ID: {{ student.Student_ID }}</li>
+        <li>Ім'я: {{ student.First_Name }}</li>
+        <li>Прізвище: {{ student.Last_Name }}</li>
+        <li>Курс: {{ student.Course }}</li>
+    </ul>
+    <a href="{{ url_for('students_index') }}">Назад до списку</a>
+</body>
+</html>

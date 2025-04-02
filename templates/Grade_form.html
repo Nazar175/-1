@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Grades</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Manage Grades</h1>
+
+    <h2>Add a new grade</h2>
+    <form id="addGradeForm">
+        Student ID: <input type="number" id="studentId" required>
+        Discipline ID: <input type="number" id="disciplineId" required>
+        Grade Value: <input type="number" id="gradeValue" required>
+        <button type="submit">Add Grade</button>
+    </form>
+    <p id="addMessage" style="color: green;"></p>
+
+    <h2>Update Grade</h2>
+    <form id="updateGradeForm">
+        Grade ID: <input type="number" id="updateId" required>
+        New Student ID: <input type="number" id="updateStudentId" required>
+        New Discipline ID: <input type="number" id="updateDisciplineId" required>
+        New Grade Value: <input type="number" id="updateGradeValue" required>
+        <button type="submit">Update Grade</button>
+    </form>
+    <p id="updateMessage" style="color: green;"></p>
+
+    <h2>Delete Grade</h2>
+    <form id="deleteGradeForm">
+        Grade ID: <input type="number" id="deleteId" required>
+        <button type="submit">Delete Grade</button>
+    </form>
+    <p id="deleteMessage" style="color: red;"></p>
+
+    <script>
+        $(document).ready(function() {
+            $("#addGradeForm").submit(function(event) {
+                event.preventDefault();
+                $.post("/manage_grades", {
+                    Student_ID: $("#studentId").val(),
+                    Discipline_ID: $("#disciplineId").val(),
+                    Grade_Value: $("#gradeValue").val()
+                }, function() {
+                    $("#addMessage").text("Grade added successfully!");
+                });
+            });
+
+            $("#updateGradeForm").submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/manage_grades",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        id: $("#updateId").val(),
+                        Student_ID: $("#updateStudentId").val(),
+                        Discipline_ID: $("#updateDisciplineId").val(),
+                        Grade_Value: $("#updateGradeValue").val()
+                    }),
+                    success: function() {
+                        $("#updateMessage").text("Grade updated successfully!");
+                    }
+                });
+            });
+
+            $("#deleteGradeForm").submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/manage_grades",
+                    type: "DELETE",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: $("#deleteId").val() }),
+                    success: function() {
+                        $("#deleteMessage").text("Grade deleted successfully!");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
