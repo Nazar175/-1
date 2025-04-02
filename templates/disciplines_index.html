@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список дисциплін</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Список дисциплін</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Назва дисципліни</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for discipline in disciplines %}
+            <tr>
+                <td>{{ discipline.Discipline_ID }}</td>
+                <td>{{ discipline.Discipline_Name }}</td>
+                <td>
+                    <a href="{{ url_for('disciplines_show', id=discipline.Discipline_ID) }}">Переглянути дисципліну</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{{ url_for('disciplines') }}">Назад</a>
+</body>
+</html>

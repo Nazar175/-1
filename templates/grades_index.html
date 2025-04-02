@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список оцінок</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Список оцінок</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID студента</th>
+                <th>ID дисципліни</th>
+                <th>Оцінка</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+            <tr>
+                <td>{{ grade.Grade_ID }}</td>
+                <td>{{ grade.Student_ID }}</td>
+                <td>{{ grade.Discipline_ID }}</td>
+                <td>{{ grade.Grade_Value }}</td>
+                <td>
+                    <a href="{{ url_for('grades_show', id=grade.Grade_ID) }}">Переглянути</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{{ url_for('grades') }}">Назад</a>
+</body>
+</html>
